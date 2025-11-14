@@ -49,8 +49,7 @@ services:
       - ${BACKUP_DIR}:/backup
       - ./backup/backup.sh:/backup.sh:ro
     entrypoint: >
-      sh -c "chmod +x /backup.sh &&
-      echo \"${BACKUP_CRON} root /backup.sh >> /proc/1/fd/1 2>&1\" > /etc/crontabs/root &&
+      sh -c "echo \"${BACKUP_CRON} /backup.sh >> /proc/1/fd/1 2>&1\" > /etc/crontabs/root &&
       crond -f -L /dev/stdout"
     networks:
       - monitoring_net
